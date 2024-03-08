@@ -1,0 +1,56 @@
+type: picture
+image: /local/img/logo/eposnow.png
+tap_action:
+  action: url
+  url_path: https://www.foo.bar/
+hold_action:
+  action: none
+card_mod:
+  style: >
+    ha-card { filter: grayscale(50%); scale: 1; opacity: 0.6;
+    transform: scale(1) rotate(0deg); transition: all 0.2s; font-family: Montserrat; font-variant: small-caps;}
+    ha-card:active { transform: scale(0.9) !important; } ha-card:hover
+    img { scale: 2; transform: rotate(360deg); filter:blur(5px);
+    transition: all 0.5s;} ha-card:hover { filter: grayscale(0%) ;
+    opacity: 1; box-shadow: 0px 0px 2px 1px var(--wa-primary)
+    !important; transition: all 0s; }
+
+    ha-card:after {
+
+    content: 'products' !important;
+
+    position: absolute;
+
+    z-index: 1;
+
+    top: 100%;
+
+    padding: 0% 4em;
+
+    border-radius: 5px 5px 0 0;
+
+    left: 50%;
+
+    transform: translate(-50%,-100%) !important;
+
+    font-weight: 700; font-size: 1.1em; white-space: nowrap; overflow:
+    hidden;
+
+    box-shadow: 0.5px 1px 2px rgb(0,0,0,0.2);
+
+    color: var(--wa-black);
+
+    letter-spacing: 0.075em;
+
+    background: rgb(255,255,255,0.4) !important;
+
+    transition: all 1s !important;
+
+    animation: op 0.3s ease-out forwards;
+
+    transform-origin: 0% 0%;
+
+    }              @keyframes op {
+        0% { opacity: 0; scale: 0.2; }
+        100% { opacity: 1; scale: 0.7; }
+      }

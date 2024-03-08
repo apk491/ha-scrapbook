@@ -1,0 +1,60 @@
+type: custom:mini-graph-card
+entities:
+  - entity: input_number.test
+    color: rgba(50,50,255,0.5)
+icon: far:money-bill-1
+show:
+  icon: true
+  fill: fade
+  graph: bar
+  name: false
+  legend: false
+  labels: false
+hours_to_show: 336
+animate: true
+aggregate_func: max
+align_state: center
+align_header: center
+group_by: date
+decimals: 2
+hour24: true
+card_mod:
+  style: |
+    .states, .graph, .header {
+      transition: all 0.2s;
+    }
+    .states {
+      filter: blur(0.6rem) !important;
+      opacity: 0.9;
+      font-weight: 400 !important;
+      font-family: 'Montserrat';
+    }
+    .graph {
+      filter: blur(0.4rem);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .header {
+      filter: blur(0.6rem);
+      scale: 0.8;
+      opacity: 0.4;
+    }
+    ha-card {
+      border-radius: 5px;
+    }
+    ha-card:hover .graph {
+      filter: blur(0rem) !important;
+      opacity: 0.9;
+      transition: all 0.5s;
+      pointer-events: unset;
+    }
+    ha-card:hover .header {
+      filter: blur(0rem)  drop-shadow(1px 1px 2px rgb(0,0,0,0.2)) !important;
+      opacity: 0.8;
+      scale: 1;
+      transition: all 0.5s;
+    }
+    ha-card:hover .states {
+      filter: blur(0rem) !important;
+      transition: all 0.5s;
+    }

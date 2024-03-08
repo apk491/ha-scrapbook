@@ -1,0 +1,145 @@
+- resource: "https://services.swpc.noaa.gov/products/kyoto-dst.json"
+  sensor:
+    - name: "NOAA Kyoto DST"
+      unique_id: "json_kyoto"
+      value_template: "{{ value_json[-1][1] }}"
+      state_class: measurement
+- resource: "https://services.swpc.noaa.gov/json/goes/primary/xray-flares-latest.json"
+  sensor:
+    - name: "NOAA Current Flare"
+      unique_id: "json_goes_primary_xray-flares-latest"
+      value_template: "{{ value_json[0].current_class }}"
+      json_attributes:
+        - time_tag
+        - satellite
+        - current_class
+        - current_ratio
+        - current_int_xrlong
+        - begin_time
+        - begin_class
+        - max_time
+        - max_class
+        - max_xrlong
+        - max_ratio_time
+        - max_ratio
+        - end_class
+- resource: "https://services.swpc.noaa.gov/json/dscovr/dscovr_mag_1s.json"
+  sensor:
+    - name: "NOAA DSCOVR Mag BZ"
+      state_class: measurement
+      unique_id: "json_dscovr_mag_1s_bz"
+      value_template: "{{ value_json[0].bz_gse }}"
+      json_attributes:
+        - time_tag
+    - name: "NOAA DSCOVR Mag BT"
+      state_class: measurement
+      unique_id: "json_dscovr_mag_1s"
+      value_template: "{{ value_json[0].bt }}"
+      json_attributes:
+        - time_tag
+        - bt
+        - bx_gse
+        - by_gse
+        - bz_gse
+        - theta_gse
+        - phi_gse
+        - bx_gsm
+        - by_gsm
+        - theta_gsm
+        - phi_gsm
+- resource: "https://services.swpc.noaa.gov/json/rtsw/rtsw_mag_1m.json"
+  sensor:
+    - name: "NOAA RTSW Mag BZ"
+      state_class: measurement
+      unique_id: "json_rtsw_mag_1m_bz"
+      value_template: "{{ value_json[0].bz_gse }}"
+      json_attributes:
+        - time_tag
+    - name: "NOAA RTSW Mag BT"
+      state_class: measurement
+      unique_id: "json_rtsw_mag_1m"
+      value_template: "{{ value_json[0].bt }}"
+      json_attributes:
+        - time_tag
+        - bt
+        - bx_gse
+        - by_gse
+        - bz_gse
+        - theta_gse
+        - phi_gse
+        - bx_gsm
+        - by_gsm
+        - theta_gsm
+        - phi_gsm
+        - source
+        - active
+- resource: "https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_1m.json"
+  sensor:
+    - name: "NOAA RTSW Solar Wind"
+      unique_id: "json_rtsw_wind_1m"
+      value_template: "{{ value_json[0].proton_speed }}"
+      json_attributes:
+        - time_tag
+        - active
+        - source
+        - proton_speed
+        - proton_temperature
+        - proton_density
+- resource: "https://services.swpc.noaa.gov/products/alerts.json"
+  sensor:
+    - name: "NOAA Alert Latest"
+      value_template: >-
+        {% set regex_pattern = '(?<=\n\n)([^:\n]+:[^\n]*)' %}
+        {% set extracted_content = value_json[0]['message'] | regex_findall_index(regex_pattern, 0) %}
+        {{ extracted_content[0] if extracted_content else "No content found" }}
+      unique_id: "json_latest_alert"
+      json_attributes:
+        - product_id
+        - issue_datetime
+    - name: "NOAA SWPC Alerts 1"
+      unique_id: "json_swpc_alert"
+      value_template: "{{ value_json[0].issue_datetime }}"
+      json_attributes:
+        - product_id
+        - message
+    - name: "NOAA SWPC Alerts 2"
+      unique_id: "json_swpc_alert_2"
+      value_template: "{{ value_json[1].issue_datetime }}"
+      json_attributes:
+        - product_id
+        - message
+    - name: "NOAA SWPC Alerts 3"
+      unique_id: "json_swpc_alert_3"
+      value_template: "{{ value_json[2].issue_datetime }}"
+      json_attributes:
+        - product_id
+        - message
+- resource: "https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json"
+  sensor:
+    - name: "NOAA SWPC Bt"
+      state_class: measurement
+      unique_id: "json_basic_1"
+      value_template: "{{ value_json.Bt}}"
+      json_attributes:
+        - TimeStamp
+    - name: "NOAA SWPC Bz"
+      state_class: measurement
+      unique_id: "json_basic_2"
+      value_template: "{{ value_json.Bz}}"
+      json_attributes:
+        - TimeStamp
+- resource: "https://services.swpc.noaa.gov/products/summary/10cm-flux.json"
+  sensor:
+    - name: "NOAA SWPC Flux"
+      state_class: measurement
+      unique_id: "json_basic_3"
+      value_template: "{{ value_json.Flux }}"
+      json_attributes:
+        - TimeStamp
+- resource: "https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json"
+  sensor:
+    - name: "NOAA SWPC Wind Speed"
+      unique_id: "json_basic_4"
+      value_template: "{{ value_json.WindSpeed }}"
+      json_attributes:
+        - TimeStamp

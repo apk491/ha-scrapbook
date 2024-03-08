@@ -1,0 +1,63 @@
+type: custom:mini-graph-card
+entities:
+  - entity: sensor.freezer_right_temperature
+    name: right
+    color: var(--blue-color)
+    unit: °c
+show:
+  icon: false
+  extrema: true
+  points: false
+  labels: false
+  fill: fade
+line_width: 3
+hour24: true
+decimals: 1
+hours_to_show: 24
+points_per_hour: 3
+align_header: center
+align_state: center
+group: true
+card_mod:
+  style: |
+    .state__uom {
+      position: relative;
+      left: 10%;
+      font-size: 0.95em !important;
+    }
+    .state__value {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      letter-spacing: 2px !important;
+      color: var(--secondary-text-color);
+    }
+    .states, .header, .info {
+      padding: 0px !important;
+      font-family: "Montserrat" !important;
+    }
+    .info__item__type {
+      opacity: 0.2 !important;
+      font-variant: small-caps;
+      text-transform: lowercase !important;
+      margin-bottom: -5px !important;
+    }
+    .header {
+      font-variant: small-caps;
+    }
+    .states {
+      font-weight: 700 !important;
+    }
+    ha-card {
+      padding: 6px !important;
+      font-size: 0.9em !important;
+      {% set temp =  states('sensor.freezer_right_temperature') | int %}
+      {% if temp >= 0 %}
+        --frz-col: var(--red-color);
+      {% elif temp < 0 %}
+        --frz-col: var(--blue-color);
+      {% else %}
+        --frz-col: var(--primary-color);
+      {% endif %}
+        background: {{ 'radial-gradient(circle at 50% -180%, rgba(220,220,120, 0.4), var(--card-background-color))' if is_state('light.freezer_right','on') }};
+    }

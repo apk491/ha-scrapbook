@@ -1,0 +1,170 @@
+type: custom:stack-in-card
+mode: vertical
+keep:
+  background: true
+  border_radius: true
+  border_width: true
+  padding: true
+  outer_padding: true
+  box_shadow: true
+card_mod:
+  style: |
+    ha-card {
+      background:
+        linear-gradient(
+          to top left, 
+          var(--card-background-color) 0%,
+          rgba(125,125,125,0.1) 120%);
+          
+      border: 5px solid var(--card-background-color);
+      box-shadow: none;
+      padding: 5% 5% 2% 5%;
+    }
+cards:
+  - variables:
+      name: clock
+      entity: sensor.time
+      icon: mdi:circle
+      clock_icon: mdi:home-assistant
+      date: |
+        [[[
+          const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+          const d = new Date();
+          const date = new Date().getDate();
+          return weekday[d.getDay()] + ' ' + date;
+        ]]]
+      hrs: |
+        [[[
+          const hour = new Date().getHours();
+          const min = new Date().getMinutes();
+          const result = 30 * hour + min / 2;
+          return result;
+        ]]]
+      mins: |
+        [[[
+          const min = new Date().getMinutes();
+          const result = min * 6
+          return result
+        ]]]
+      secs: |
+        [[[
+          const sec = new Date().getSeconds();
+          const result = sec * 6
+          return result
+        ]]]
+      secs_visible: hidden
+    type: custom:button-card
+    triggers_update:
+      - sensor.time
+    entity: '[[[ return variables.entity ]]]'
+    name: '[[[ return variables.date ]]]'
+    icon: '[[[ return variables.icon ]]]'
+    label: |
+      [[[ 
+          const icon = variables.clock_icon;
+          return `<ha-icon icon="${icon}" style="opacity:1, position: absolute; color: var(--surface2); top: 25%; z-index: 1; height: 0.8em; width: 1em; color: var(--surface1);"></ha-icon>`;
+      ]]]
+    show_label: false
+    aspect_ratio: 1/1
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    styles:
+      card:
+        - margin-top: '-8px'
+        - background-color: rgb(255,255,255,0.04)
+        - border-radius: 50%
+        - background-image: url("https://imvpn22.github.io/analog-clock/clock.png")
+        - background-position: center center;
+        - background-size: cover;
+        - box-shadow: >
+            -5px -5px 5px 0px rgba(255, 255, 255, 0.05), inset -5px -5px 5px
+            0px rgba(255,255, 255, 0.05), 5px 5px 5px 2px rgba(0, 0, 0, 0.3), 
+            inset 5px 5px 5px 2px rgba(0, 0, 0, 0.3);
+        - border: 5px solid var(--card-background-color);
+      icon:
+        - color: transparent
+        - position: absolute
+        - box-shadow: 0px 0px 0.5em 0px rgb(0,0,0,0.5)
+        - background: var(--primary-text-color)
+        - border-radius: 100%
+        - height: 18px
+        - width: 18px
+        - border: 1px solid white
+        - scale: 0.3
+      name:
+        - position: absolute
+        - color: rgba(125,125,125,0.9)
+        - font-family: Montserrat
+        - font-weight: 600
+        - letter-spacing: 0.1vw
+        - width: 100vw
+        - left: 50%
+        - top: 69%
+        - text-align: center
+        - font-size: 120%
+        - text-shadow: 0.05vw 0.05vw 0.1vw var(--base)
+        - transform: translateX(-50%)
+        - z-index: auto
+        - color: rgba(125,125,125,0.9)
+        - filter: drop-shadow(2px 2px 2px rgb(0,0,0,0.1))
+      label:
+        - position: absolute
+        - color: var(--surface2)
+        - top: 20%
+        - z-index: 1
+      custom_fields:
+        custom1:
+          - position: absolute;
+          - background: >-
+              var(--mdc-theme-primary) linear-gradient(rgb(0,0,0,0.1) 100%,
+              rgb(255,255,255,0.1) 100%)
+          - box-shadow: 0px 0px 0.5em 0px rgb(0,0,0,0.5)
+          - border-radius: 5px 5px 20% 20%
+          - transform-origin: bottom;
+          - width: 2.5%;
+          - height: 30%;
+          - top: 20%;
+          - left: 48.85%;
+          - opacity: 0.8;
+          - z-index: 1
+          - transform: |
+              [[[
+                  return 'rotate(' + variables.hrs +'deg);'
+              ]]]
+        custom2:
+          - position: absolute
+          - background: >-
+              var(--mdc-theme-primary) linear-gradient(rgb(255,255,255,0.1)
+              0%, rgb(255,255,255,0.1) 100%)
+          - border-radius: 5px 5px 20% 20%
+          - transform-origin: bottom
+          - box-shadow: 0px 0px 0.5em 0px rgb(0,0,0,0.5)
+          - width: 1.6%
+          - height: 38%
+          - top: 12%
+          - left: 48.9%
+          - opacity: 0.8
+          - z-index: 1
+          - transform: |
+              [[[
+                  return 'rotate(' + variables.mins +'deg)'
+              ]]]
+        custom5:
+          - position: absolute
+          - top: 27%
+          - left: 50%
+          - transform: translateX(-50%)
+          - color: rgba(125,125,125,0.9)
+          - z-index: 0
+          - filter: drop-shadow(0px 0px 2px rgb(0,0,0,0.1))
+    custom_fields:
+      custom1: ''
+      custom2: ''
+      custom3: ''
+      custom5: |
+        [[[ 
+            const icon = variables.clock_icon;
+            return `<ha-icon icon="${icon}" style="opacity:0.5, position: absolute; top: 25%; z-index: 1; height: 2.8em; width: 2em;);"></ha-icon>`;
+        ]]]

@@ -1,0 +1,218 @@
+- sensor:
+    - name: "Fuel Petrol Lowest"
+      state: >
+        {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+        ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+        {% if fuel %}
+          {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+          {% set lowest_E10 = E10 | min %}
+          {% set cheapest_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', lowest_E10) | first %}
+          {{ cheapest_E10.entity.name }}
+        {% else %}
+          '-'
+        {% endif %}
+      attributes:
+        price: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+            {% set lowest_E10 = E10 | min %}
+            {% set cheapest_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', lowest_E10) | first %}
+            {{ cheapest_E10.entity.attributes.E10 }}
+          {% else %}
+            '-'
+          {% endif %}
+        reference: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+            {% set lowest_E10 = E10 | min %}
+            {% set cheapest_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', lowest_E10) | first %}
+            {{ cheapest_E10.entity.entity_id }}
+          {% else %}
+            '-'
+          {% endif %}
+- sensor:
+    - name: "Fuel Diesel Lowest"
+      state: >
+        {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+        ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+        {% if fuel %}
+          {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+          {% set lowest_B7 = B7 | min %}
+          {% set cheapest_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', lowest_B7) | first %}
+          {{ cheapest_B7.entity.name }}
+        {% else %}
+          '-'
+        {% endif %}
+      attributes:
+        price: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+            {% set lowest_B7 = B7 | min %}
+            {% set cheapest_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', lowest_B7) | first %}
+            {{ cheapest_B7.entity.attributes.B7 }}
+          {% else %}
+            '-'
+          {% endif %}
+        reference: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+            {% set lowest_B7 = B7 | min %}
+            {% set cheapest_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', lowest_B7) | first %}
+            {{ cheapest_B7.entity.entity_id }}
+          {% else %}
+            '-'
+          {% endif %}
+- sensor:
+    - name: "Fuel Petrol Highest"
+      state: >
+        {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          
+          {'entity': states.device_tracker.sainsbury_s_ne11_0jy}
+        ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+        {% if fuel %}
+          {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+          {% set highest_E10 = E10 | max %}
+          {% set exp_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', highest_E10) | first %}
+          {{ exp_E10.entity.name }}
+        {% else %}
+          '-'
+        {% endif %}
+      attributes:
+        price: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+            {% set highest_E10 = E10 | max %}
+            {% set exp_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', highest_E10) | first %}
+            {{ exp_E10.entity.attributes.E10 }}
+          {% else %}
+            '-'
+          {% endif %}
+        reference: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set E10 = fuel | map(attribute='entity.attributes.E10') | list %}
+            {% set highest_E10 = E10 | max %}
+            {% set exp_E10 = fuel | selectattr('entity.attributes.E10', 'equalto', highest_E10) | first %}
+            {{ exp_E10.entity.entity_id }}
+          {% else %}
+            '-'
+          {% endif %}
+- sensor:
+    - name: "Fuel Diesel Highest"
+      state: >
+        {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          
+          {'entity': states.device_tracker.sainsbury_s_ne11_0jy}
+        ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+        {% if fuel %}
+          {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+          {% set highest_B7 = B7 | max %}
+          {% set exp_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', highest_B7) | first %}
+          {{ exp_B7.entity.name }}
+        {% else %}
+          '-'
+        {% endif %}
+      attributes:
+        price: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+            {% set highest_B7 = B7 | max %}
+            {% set exp_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', highest_B7) | first %}
+            {{ exp_B7.entity.attributes.B7 }}
+          {% else %}
+            '-'
+          {% endif %}
+        reference: >
+          {% set fuel = [
+          {'entity': states.device_tracker.shell_XXX},
+          {'entity': states.device_tracker.morrisons_XXX},
+          {'entity': states.device_tracker.bp_XXX},
+          {'entity': states.device_tracker.asda_XXX},
+          {'entity': states.device_tracker.esso_XXX},
+          {'entity': states.device_tracker.sainsbury_s_XXX}
+          ] | selectattr('entity.state', '!=', 'unavailable') | list %}
+          {% if fuel %}
+            {% set B7 = fuel | map(attribute='entity.attributes.B7') | list %}
+            {% set highest_B7 = B7 | max %}
+            {% set exp_B7 = fuel | selectattr('entity.attributes.B7', 'equalto', highest_B7) | first %}
+            {{ exp_B7.entity.entity_id }}
+          {% else %}
+            '-'
+          {% endif %}

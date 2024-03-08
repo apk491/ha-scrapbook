@@ -1,0 +1,143 @@
+type: custom:stack-in-card
+card_mod:
+  style: |
+    ha-card {
+      padding: 5px;
+    }
+cards:
+  - type: map
+    entities:
+      - entity: zone.home
+      - entity: person.adam
+    aspect_ratio: '3:4'
+    card_mod:
+      style:
+        ha-map $ ha-entity-marker $: |
+          .marker {
+
+            /* Style person marker & adjust position to avoid blocking waypoints */
+            border: 3px solid var(--state-border) !important;
+            border-radius: 50% 50% 50% 0px !important;
+            transform: rotate(-45deg) translate(50%, -50%);
+            overflow: visible !important;
+            background: var(--state-person) !important;
+            scale: 0.6;
+            padding: 5%;
+            box-shadow: -3px 2px 5px rgb(0,0,0,0.2) !important;
+          }
+          .entity-picture {
+
+            /* Correct orientation of person avatar */
+            transform: rotate(45deg);
+            border-radius: 50%;
+          }
+        ha-map $: |
+          path:first-child { 
+
+            /* Style accuracy radius */
+            stroke: var(--state-person);
+            fill: color-mix(in srgb, var(--state-person) 50%, transparent);
+            stroke-width: 0px;
+          }
+          path:nth-child(even) {
+
+            /* Styling for waypoints */
+            stroke: var(--purple-color);
+            stroke-width: 4px;
+          }
+          path:nth-child(odd):not(:first-child) { 
+
+            /* Styling for lines */
+            stroke: var(--purple-color);
+            stroke-width: 4px;
+          }
+
+          .leaflet-control-attribution {
+
+            /* Style attribution text */
+            background: rgba(var(--rgb-card-background-color), 0.4) !important;
+            font-size: 10px;
+          }
+          .leaflet-container a {
+
+            /* Set color of zoom icons & attribution text */
+            color: var(--secondary-text-color);
+          }
+
+          .leaflet-control-zoom-in,
+          .leaflet-control-zoom-out {
+
+            /* Style zoom buttons like Chips */
+            border-radius: var(--mush-chip-border-radius, 19px) !important;
+            padding: 3px;
+            background: rgb(var(--rgb-secondary-text-color), 0.2) !important;
+            margin: 8px 12px 0px;
+            border: var(--ha-card-border-width, 1px) solid var(--ha-card-border-color, var(--divider-color, #e0e0e0)) !important;
+          } 
+          .leaflet-top {
+
+            /* Move zoom buttons to bottom of map */
+            bottom: 0px !important;
+          }
+          .leaflet-control-zoom {
+
+            /* Allow buttons to be moved */
+            position: absolute !important;
+
+            /* Adjust spacing for border */
+            bottom: calc(2 * var(--ha-card-border-width, 1px) + 56px);
+            
+            /* Remove extra margin */
+            margin: 0px !important;
+
+            /* Remove zoom control border */
+            border: none !important;
+          }
+          .leaflet-container:after {
+
+            /* Fade out map at top */
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 100%;
+          }
+        ha-icon-button $ mwc-icon-button $: |
+          button {
+
+            /* Size center button to match Chip */
+            height: var(--mush-chip-height, 36px) !important;
+            width: var(--mush-chip-height, 36px) !important;
+            --mdc-icon-size: 22px;
+          }
+        .: |
+          ha-card {
+
+            /* Remove default card styling without affecting child elements */
+            box-shadow: none;
+            border-width: 0;
+            border-radius: 7px !important;
+            
+            transition: all 0s;
+          }
+          :host {
+
+            /* Define Person State colors. Can be added to theme */
+            --state-person: var(--white-color);
+            --state-border: var(--orange-color);
+            --state-border1: var(--card-background-color);
+
+
+          }
+          ha-icon-button {
+
+            /* Position center button */
+            bottom: 12px;
+            left: 12px !important;
+            top: auto !important;
+
+            /* Style center button to match Chip */
+            color: var(--deep-orange-color) !important;
+            background: color-mix(in srgb, var(--deep-orange-color) 20%, transparent);
+            border-radius: var(--mush-chip-border-radius, 19px);
+            border: var(--ha-card-border-width, 1px) solid var(--ha-card-border-color, var(--divider-color, #e0e0e0)) !important;
+          }

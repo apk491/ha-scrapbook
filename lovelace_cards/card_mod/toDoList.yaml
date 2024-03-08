@@ -1,0 +1,71 @@
+type: todo-list
+entity: todo.to_do_list
+card_mod:
+  style:
+    ha-textfield:
+      $: |
+        .mdc-text-field {
+          height: 30px !important;
+          width: 100% !important;
+          margin: 0px !important;
+          position: relative;
+          left: 0;
+        }
+        .mdc-text-field__input {
+          font-size: 0.8em !important;
+        }
+        :host {
+          padding: none !important;
+          width: 100%;
+          margin: -12px !important;
+        }
+    .: |
+      .due {
+        
+      }
+      .column {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+      }
+      mdc-checkbox__native-control {
+        scale: 1.5 !important;
+      }
+      ha-card.type-todo-list div.header {
+        height: 20px;
+        font-size: 0.8em;
+        letter-spacing: 1px;
+        font-variant: small-caps;
+        background: rgb(100,100,100,0.05) !important;
+        text-transform: lowercase;
+      }     
+      .mdc-checkbox__native-control {
+        opacity: 0.2 !important;
+      }
+      ha-check-list-item.editRow.completed {
+        min-height: 28px;
+        font-size: 0.8em;
+        opacity: 0.8;
+        font-style: italic;
+      }
+      :host {
+        --mdc-checkbox-ripple-size: 33px;
+      }
+      ha-check-list-item {
+        min-height: 28px !important;
+        font-size: 0.9em;
+        border: 1px solid rgb(100,100,100,0.1);
+        border-width: 1px 0px 0px 0px;
+      }
+      ha-card {
+        --mdc-typography-subtitle1-font-size: 1.1em;;
+      }
+      ha-icon-button {
+        scale: 0.5;
+        margin-right: -20px !important;
+      }
+      ha-icon-button.addButton {
+        scale: 0.75 !important;
+      }
+      .divider {
+        display: none;
+      }
